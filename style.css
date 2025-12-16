@@ -1,1 +1,452 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.player-section {
+    flex: 1;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vinyl-container {
+    position: relative;
+    width: 380px; 
+    height: 380px;
+    margin-bottom: 50px;
+}
+
+.vinyl {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent; /* 去掉背景色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 5px rgba(0, 0, 0, 0.3); /* 外边框效果 */
+}
+
+/* 让图片直接成为唱片 */
+.vinyl img {
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1), /* 内边框 */
+        inset 0 0 30px rgba(0, 0, 0, 0.5); /* 内阴影 */
+}
+
+.vinyl-playing {
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+
+.song-info {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.song-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.song-artist {
+    font-size: 1.2rem;
+    color: #aaa;
+}
+
+.progress-container {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, #ec4141, #ff6b6b);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.1s;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.controls {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.control-btn:hover {
+    background-color: rgba(236, 65, 65, 0.3);
+    transform: scale(1.05);
+}
+
+.control-btn i {
+    font-size: 1.5rem;
+}
+
+.play-btn {
+    width: 70px;
+    height: 70px;
+    background-color: #ec4141;
+    box-shadow: 0 5px 15px rgba(236, 65, 65, 0.4);
+}
+
+.play-btn:hover {
+    background-color: #ff5252;
+    transform: scale(1.08);
+}
+
+/* 倍速控制按钮样式 */
+.speed-control {
+    flex-direction: column;
+    padding: 5px;
+}
+
+.speed-control .current-speed {
+    font-size: 0.6rem;
+    margin-top: 2px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* 倍速选择菜单 */
+.speed-menu {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 10px;
+    padding: 10px 0;
+    min-width: 120px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: none;
+    z-index: 100;
+}
+
+.speed-menu::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(30, 30, 30, 0.95);
+}
+
+.speed-menu.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.speed-option {
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    color: #aaa;
+}
+
+.speed-option:hover {
+    background-color: rgba(236, 65, 65, 0.2);
+    color: #fff;
+}
+
+.speed-option.active {
+    color: #ffffff;
+    background-color: rgba(236, 65, 65, 0.1);
+    font-weight: bold;
+}
+
+.volume-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.volume-icon {
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+.volume-bar {
+    flex: 1;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.volume-level {
+    height: 100%;
+    background: linear-gradient(to right, #ec4141, #ff6b6b);
+    border-radius: 2px;
+    width: 70%;
+}
+
+.playlist-section {
+    flex: 1;
+    min-width: 400px;
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.playlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playlist-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.playlist-count {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.close-playlist-btn {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.close-playlist-btn:hover {
+    background-color: rgba(236, 65, 65, 0.3);
+}
+
+.playlist-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.playlist-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.playlist-items::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.playlist-items::-webkit-scrollbar-thumb {
+    background: #ec4141;
+    border-radius: 3px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+}
+
+.playlist-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.playlist-item.active {
+    background-color: rgba(236, 65, 65, 0.2);
+    color: #fff;
+}
+
+.playlist-item-index {
+    width: 25px;
+    text-align: center;
+    margin-right: 15px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.playlist-item.active .playlist-item-index {
+    color: #ec4141;
+}
+
+.playlist-item-info {
+    flex: 1;
+}
+
+.playlist-item-title {
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.playlist-item-artist {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.playlist-item.active .playlist-item-artist {
+    color: #ff9999;
+}
+
+.playlist-item-duration {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+.playlist-item.active .playlist-item-duration {
+    color: #ff9999;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 2px;
+    width: 100%;
+    color: #666;
+    font-size: 2rem;
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .player-section, .playlist-section {
+        min-width: 100%;
+    }
+    
+    .vinyl-container {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .album-cover {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .playlist-section {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        max-height: 80vh;
+    }
+    
+    .speed-menu {
+        bottom: 60px;
+    }
+}
+
