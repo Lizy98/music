@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缪津</title>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="player-section">
+            <div class="vinyl-container">
+                <div class="vinyl" id="vinyl">
+                        <img src="https://picsum.photos/400/400?random=1" alt="专辑封面" id="albumCover">
+                    <div class="vinyl-center"></div>
+                </div>
+            </div>
+            <!-- 歌曲信息 -->
+            <div class="song-info">
+                <div class="song-title" id="songTitle">透明だった世界 （曾经透明的世界）</div>
+                <div class="song-artist" id="songArtist">秦基博</div>
+            </div>
+            <!-- 进度条和时间显示部分 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-info">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+            <!-- 音乐播放器的控制按钮 -->
+            <div class="controls">
+                <div class="control-btn speed-control" id="speedControlBtn">
+                    <i class="fas fa-forward"></i>
+                    <span class="current-speed" id="currentSpeed">1.0x</span>
+                    <!-- 倍速选择菜单 -->
+                    <div class="speed-menu" id="speedMenu">
+                        <div class="speed-option" data-speed="0.5">0.5x</div>
+                        <div class="speed-option" data-speed="0.75">0.75x</div>
+                        <div class="speed-option active" data-speed="1.0">1.0x</div>
+                        <div class="speed-option" data-speed="1.25">1.25x</div>
+                        <div class="speed-option" data-speed="1.5">1.5x</div>
+                        <div class="speed-option" data-speed="2.0">2.0x</div>
+                    </div>
+                </div>
+                <div class="control-btn" id="prevBtn">
+                    <i class="fas fa-step-backward"></i>
+                </div>
+                <div class="control-btn play-btn" id="playBtn">
+                    <i class="fas fa-play" id="playIcon"></i>
+                </div>
+                <div class="control-btn" id="nextBtn">
+                    <i class="fas fa-step-forward"></i>
+                </div>
+                <div class="control-btn" id="playlistToggleBtn">
+                    <i class="fas fa-list-ul"></i>
+                </div>
+            </div>
+            <!-- 音量控制部分 -->
+            <div class="volume-container">
+                <div class="volume-icon">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <div class="volume-bar">
+                    <div class="volume-level" id="volumeLevel"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 播放列表 -->
+        <div class="playlist-section" id="playlistSection" style="display: none;">
+            <div class="playlist-header">
+                <div class="playlist-title">播放列表</div>
+                <div class="playlist-count" id="playlistCount">5首歌曲</div>
+                <div class="control-btn close-playlist-btn" id="closePlaylistBtn">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="playlist-items" id="playlistItems"></div>
+        </div>
+        
+        <div class="footer">
+            <p>25216950304<br>杨少烁</p>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
 
