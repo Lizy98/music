@@ -1,45 +1,60 @@
-
+/* 全局样式重置 */
 * {
+    /* 清除所有元素的默认边距 */
     margin: 0;
     padding: 0;
+    /* 设置盒模型为边框盒，元素宽度包含内边距和边框 */
     box-sizing: border-box;
+    /* 设置字体栈，使用苹果系统字体，其次微软雅黑，最后无衬线字体 */
     font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 
+/* 页面基础样式 */
 body {
+    /* 135度角渐变背景，从深灰到深褐色 */
     background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%);
     color: #fff;
+    /* 最小高度为视口高度，确保页面占满屏幕 */
     min-height: 100vh;
     display: flex;
+    /* 水平和垂直居中 */
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
+/* 主容器样式 */
 .container {
     width: 100%;
     max-width: 1200px;
+    /* 弹性布局，允许换行 */
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
 }
 
+/* 播放器区域 */
 .player-section {
+    /* 占据剩余空间的1份 */
     flex: 1;
     min-width: 400px;
+    /* 垂直方向的弹性布局 */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* 唱片容器 */
 .vinyl-container {
+    /* 相对定位，为内部绝对定位元素提供参考 */
     position: relative;
     width: 380px; 
     height: 380px;
     margin-bottom: 50px;
 }
 
+/* 唱片主体 */
 .vinyl {
     width: 100%;
     height: 100%;
@@ -49,34 +64,42 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    /* 隐藏溢出内容 */
     overflow: hidden;
+    /* 多层阴影效果，外部模糊阴影+黑色边框效果 */
     box-shadow: 
         0 15px 40px rgba(0, 0, 0, 0.8),
         0 0 0 5px rgba(0, 0, 0, 0.3); /* 外边框效果 */
 }
 
+/* 唱片图片样式 */
 /* 让图片直接成为唱片 */
 .vinyl img {
     width: 70%;
     height: 70%;
+    /* 图片填充方式，裁剪多余部分，保持比例 */
     object-fit: cover;
     border-radius: 50%;
+    /* 两层内阴影，白色内边框+黑色内发光效果 */
     box-shadow: 
         inset 0 0 0 1px rgba(255, 255, 255, 0.1), /* 内边框 */
         inset 0 0 30px rgba(0, 0, 0, 0.5); /* 内阴影 */
 }
 
+/* 播放时的旋转动画 */
 .vinyl-playing {
+    /* 应用旋转动画，20秒一圈，匀速，无限循环 */
     animation: rotate 20s linear infinite;
 }
-
+/* 定义关键帧动画 */
 @keyframes rotate {
+    /* 起始状态，0度 */
     from { transform: rotate(0deg); }
+    /* 结束状态，360度 */
     to { transform: rotate(360deg); }
 }
 
-
-
+/* 歌曲信息区域 */
 .song-info {
     text-align: center;
     margin-bottom: 30px;
@@ -88,6 +111,7 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     color: #fff;
+    /* 黑色文字阴影，增加立体感 */
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -96,6 +120,7 @@ body {
     color: #aaa;
 }
 
+/* 进度条容器 */
 .progress-container {
     width: 100%;
     margin-bottom: 25px;
@@ -104,6 +129,7 @@ body {
 .progress-bar {
     width: 100%;
     height: 6px;
+    /* 20%不透明度的白色背景 */
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     cursor: pointer;
@@ -111,57 +137,75 @@ body {
     position: relative;
 }
 
+/* 进度指示器 */
 .progress {
     height: 100%;
+    /* 红色到亮红色的水平渐变 */
     background: linear-gradient(to right, #ec4141, #ff6b6b);
     border-radius: 3px;
     width: 0%;
+    /* 宽度变化时0.1秒过渡 */
     transition: width 0.1s;
     position: relative;
 }
 
+/* 伪元素，创建进度滑块 */
 .progress::after {
     content: '';
     position: absolute;
+    /* 定位在进度条右侧，偏移6像素 */
     right: -6px;
     top: 50%;
+    /* 垂直居中 */
     transform: translateY(-50%);
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background: #fff;
+    /* 黑色阴影效果 */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+/* 时间信息 */
 .time-info {
     display: flex;
+    /* 弹性布局，两端对齐 */
     justify-content: space-between;
+    /* 字体大小为0.9倍根元素字体大小 */
     font-size: 0.9rem;
     color: #aaa;
 }
 
+/* 控制按钮容器 */
 .controls {
+    /* 弹性布局，水平排列按钮 */
     display: flex;
     gap: 25px;
     margin-bottom: 30px;
+    /* 相对定位，为速度菜单定位提供参考 */
     position: relative;
 }
 
+/* 控制按钮基础样式 */
 .control-btn {
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    /* 10%不透明度的白色背景 */
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    /* 所有属性变化0.3秒过渡 */
     transition: all 0.3s;
+    /* 20%不透明度的白色边框 */
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
 }
 
+/* 悬停效果，背景变为30%不透明的红色，放大5% */
 .control-btn:hover {
     background-color: rgba(236, 65, 65, 0.3);
     transform: scale(1.05);
@@ -171,6 +215,7 @@ body {
     font-size: 1.5rem;
 }
 
+/* 播放按钮特殊样式 */
 .play-btn {
     width: 70px;
     height: 70px;
@@ -178,6 +223,7 @@ body {
     box-shadow: 0 5px 15px rgba(236, 65, 65, 0.4);
 }
 
+/* 悬停时颜色变亮，放大8% */
 .play-btn:hover {
     background-color: #ff5252;
     transform: scale(1.08);
@@ -198,21 +244,27 @@ body {
 
 /* 倍速选择菜单 */
 .speed-menu {
+    /* 绝对定位，在按钮上方70px处，水平居中 */
     position: absolute;
     bottom: 70px;
     left: 50%;
+    /* 向左移动自身宽度的50%，实现真正居中 */
     transform: translateX(-50%);
     background-color: rgba(30, 30, 30, 0.95);
     border-radius: 10px;
     padding: 10px 0;
     min-width: 120px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    /* 毛玻璃效果，模糊背景 */
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: none;
+    /* 高z-index确保在最上层 */
     z-index: 100;
 }
 
+/* 菜单箭头指示器 */
+/* 伪元素，创建向下的小三角形箭头 */
 .speed-menu::after {
     content: '';
     position: absolute;
@@ -226,11 +278,14 @@ body {
     border-top: 8px solid rgba(30, 30, 30, 0.95);
 }
 
+/* 显示菜单的类 */
 .speed-menu.show {
     display: block;
+    /* 淡入动画，0.3秒，缓动函数 */
     animation: fadeIn 0.3s ease;
 }
 
+/* 定义淡入动画，从下方10像素处淡入 */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -242,9 +297,13 @@ body {
     }
 }
 
+/* 倍速选项样式 */
 .speed-option {
+    /* 内边距，上下8px，左右20px */
     padding: 8px 20px;
+    /* 手型指针 */
     cursor: pointer;
+    /* 所有属性0.2秒过渡 */
     transition: all 0.2s;
     text-align: center;
     color: #aaa;
@@ -261,8 +320,10 @@ body {
     font-weight: bold;
 }
 
+/* 音量控制容器 */
 .volume-container {
     width: 100%;
+    /* 弹性布局，垂直居中对齐 */
     display: flex;
     align-items: center;
     gap: 15px;
@@ -273,7 +334,9 @@ body {
     font-size: 1.2rem;
 }
 
+/* 音量控制条 */
 .volume-bar {
+    /* 占据剩余空间 */
     flex: 1;
     height: 4px;
     background-color: rgba(255, 255, 255, 0.2);
@@ -286,22 +349,28 @@ body {
     height: 100%;
     background: linear-gradient(to right, #ec4141, #ff6b6b);
     border-radius: 2px;
+    /* 默认音量级别70% */
     width: 70%;
 }
 
+/* 播放列表区域 */
 .playlist-section {
     flex: 1;
     min-width: 400px;
+    /* 深灰色半透明背景 */
     background-color: rgba(30, 30, 30, 0.9);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* 毛玻璃效果 */
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
+    /* 确保在播放器上方 */
     z-index: 10;
 }
 
+/* 播放列表头部 */
 .playlist-header {
     display: flex;
     justify-content: space-between;
@@ -321,6 +390,7 @@ body {
     font-size: 0.9rem;
 }
 
+/* 关闭播放列表按钮 */
 .close-playlist-btn {
     width: 40px;
     height: 40px;
@@ -331,32 +401,41 @@ body {
     background-color: rgba(236, 65, 65, 0.3);
 }
 
+ /* 播放列表项容器 */
 .playlist-items {
     max-height: 400px;
+    /* 垂直方向超出时显示滚动条 */
     overflow-y: auto;
+    /* 右侧内边距，为滚动条留空间 */
     padding-right: 10px;
 }
 
+/* 自定义滚动条样式 */
+/* Webkit浏览器滚动条样式 */
 .playlist-items::-webkit-scrollbar {
     width: 6px;
 }
 
+/* 滚动条轨道样式 */
 .playlist-items::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 3px;
 }
 
+/* 滚动条滑块样式（红色） */
 .playlist-items::-webkit-scrollbar-thumb {
     background: #ec4141;
     border-radius: 3px;
 }
 
+/* 播放列表项 */
 .playlist-item {
     display: flex;
     align-items: center;
     padding: 12px 15px;
     border-radius: 8px;
     cursor: pointer;
+    /* 所有属性0.2秒过渡 */
     transition: all 0.2s;
     margin-bottom: 8px;
 }
@@ -370,6 +449,7 @@ body {
     color: #fff;
 }
 
+/* 播放列表项序号 */
 .playlist-item-index {
     width: 25px;
     text-align: center;
@@ -382,6 +462,7 @@ body {
     color: #ec4141;
 }
 
+/* 播放列表项信息 */
 .playlist-item-info {
     flex: 1;
 }
@@ -400,6 +481,7 @@ body {
     color: #ff9999;
 }
 
+ /* 歌曲时长 */
 .playlist-item-duration {
     color: #aaa;
     font-size: 0.85rem;
@@ -409,6 +491,7 @@ body {
     color: #ff9999;
 }
 
+/* 页脚 */
 .footer {
     text-align: center;
     margin-top: 2px;
@@ -417,36 +500,4 @@ body {
     font-size: 2rem;
 }
 
-@media (max-width: 900px) {
-    .container {
-        flex-direction: column;
-    }
-    
-    .player-section, .playlist-section {
-        min-width: 100%;
-    }
-    
-    .vinyl-container {
-        width: 280px;
-        height: 280px;
-    }
-    
-    .album-cover {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .playlist-section {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 90%;
-        max-height: 80vh;
-    }
-    
-    .speed-menu {
-        bottom: 60px;
-    }
-}
 
